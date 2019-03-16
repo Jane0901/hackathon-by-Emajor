@@ -5,11 +5,19 @@ date: "2019/3/16"
 output: html_document
 ---
 
+```{r}
+Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
+```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### Muslin
+
+```{r}
+library(readr);library(jsonlite);library(xml2);library(xmltools);
+library(stringr);library(dplyr);library(lubridate)
+```
 
 ```{r}
 read_csv("./Muslin_friend/china.csv") -> MuslinRestbyChina
@@ -19,11 +27,43 @@ read.csv("./Muslin_friend/taiwan.csv") -> MuslinRestTaiwan
 ```
 
 ```{r}
-MuslinRestbyChina$認證單位 #中國回教協會
-MuslinRestbyKao$認證單位 #財團法人中國回教協會高雄清真寺 
-MuslinRestTaipei$認證單位 #財團法人台北清真寺基金會
-MuslinRestTaiwan$認證單位 #台灣伊斯蘭協會
+
+MuslinRestbyChina$序<-NULL
+MuslinRestbyChina$認證別<-NULL
+MuslinRestbyChina$認證單位<-NULL
+MuslinRestbyChina$備註<-NULL
+
+MuslinRestbyKao$序<-NULL
+MuslinRestbyKao$認證別<-NULL
+MuslinRestbyKao$認證單位<-NULL
+MuslinRestbyKao$備註<-NULL
+
+MuslinRestTaipei$序<-NULL
+MuslinRestTaipei$認證別<-NULL
+MuslinRestTaipei$認證單位<-NULL
+MuslinRestTaipei$備註<-NULL
+
+MuslinRestTaiwan$序<-NULL
+MuslinRestTaiwan$認證別<-NULL
+MuslinRestTaiwan$認證單位<-NULL
+MuslinRestTaiwan$備註<-NULL
+
 ```
+
+```{r}
+MuslinRestbyChina %>%
+  select(地址)
+
+MuslinRestbyChina$地址 %>%
+  str_view_all("(?<=([:blank:]|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
+
+MuslinRestbyChina$地址 %>%
+  str_extract("(?<=([:blank:]|\\)|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+") ->MuslinRestbyChina$英文地址
+
+#MuslinRestbyChina$地址 %>%
+#  str_remove("(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+") #->MuslinRestbyChina$地址
+```
+
 
 ### Vegetarian
 ```{r}
@@ -34,5 +74,24 @@ read_csv("vegeterian_friend/韓文版.csv") -> vegeKorean
 read_csv("vegeterian_friend/英文版.csv") -> vegeEnglish
 
 vegeChinese %>% select(座標位置)
+```
+```{r}
+vegeChinese$座標位置 %>% 
+  str_extract("(?<=(\\,))([:digit:]|\\.)+") %>% 
+  as.numeric-> vegeChinese$經度
+
+vegeChinese$座標位置 %>% 
+  str_remove("(?<=(\\,))([:digit:]|\\.)+") ->vegeChinese$座標位置
+
+vegeChinese %>%
+  rename( 緯度 = 座標位置) ->vegeChinese
+vegeChinese$緯度 %>%
+  str_extract("([:digit:]|\\.)+(?=(\\,))") %>%
+  as.numeric ->vegeChinese$緯度
+```
+
+```{r}
+vegeChinese %>%
+  select(客戶名稱,緯度,經度) -> VegeCoordinate
 ```
 
