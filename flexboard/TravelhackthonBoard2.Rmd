@@ -17,15 +17,13 @@ library(ggplot2)
 library(bbplot)
 library(shinyjs)
 library(shinythemes)
-CountryAdmin
-librarylist
-activitylist
-neighborfinal
-vegeChinese
-vegeEnglish
-vegeJapanese
-vegeKorean
-VegeCoordinate
+load("activity.RData")
+load("restaurant.RData")
+load("emergency.RData")
+
+bclurl <- "https://pub.data.gov.bc.ca/datasets/176284/BC_Liquor_Store_Product_Price_List.csv"
+x <- getURL(bclurl)
+bcldata <- read.csv(textConnection(x), stringsAsFactors = F)
 ```
 
 Sidebar {.sidebar}
@@ -40,8 +38,9 @@ Please enter the country you belong and the city where you are now in order to e
 sliderInput("priceInput", "Price", min = 0, max = 100,
             value = c(25, 40), pre = "$")
 
-selectInput("countryInput", "Country",
-            choices = c("CANADA", "FRANCE", "ITALY"))
+selectInput("CountryInput", "Country(國家)",
+            choices = c("CANADA", "FRANCE", "ITALY"),
+            seletc)
 
 radioButtons("typeInput", "Product type",
         choices = c("BEER", "REFRESHMENT BEVERAGE", "SPIRITS", "WINE"),
