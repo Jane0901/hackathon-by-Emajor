@@ -24,10 +24,10 @@ library(stringr);library(dplyr);library(lubridate)
 ```
 
 ```{r}
-read_csv("./Muslin_friend/china.csv") -> MuslinRestbyChina
-read_csv("./Muslin_friend/kao.csv") -> MuslinRestbyKao
-read.csv("./Muslin_friend/taipei.csv") -> MuslinRestTaipei
-read.csv("./Muslin_friend/taiwan.csv") -> MuslinRestTaiwan
+read_csv("../Muslin_friend/china.csv") -> MuslinRestbyChina
+read_csv("../Muslin_friend/kao.csv") -> MuslinRestbyKao
+read.csv("../Muslin_friend/taipei.csv") -> MuslinRestTaipei
+read.csv("../Muslin_friend/taiwan.csv") -> MuslinRestTaiwan
 ```
 
 ```{r}
@@ -71,12 +71,6 @@ MuslinRestbyKao %>%
   ) ->MuslinRestbyKao
 ```
 
-<<<<<<< HEAD
-#MuslinRestbyChina$地址 %>%
-#  str_remove("(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+") #->MuslinRestbyChina$地址
-
-MuslinRestbyChina
-=======
 ```{r}
 MuslinRestTaipei %>%
   mutate(
@@ -91,17 +85,17 @@ MuslinRestTaiwan %>%
     英文地址 = str_extract(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+"),
     地址 = str_remove(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
   ) -> MuslinRestTaiwan
->>>>>>> 98cf3c889307886a5058c2ecd31c0b5023263392
+
 ```
 
 
 ### Vegetarian
 ```{r}
 # read_csv("vegeterian_friend/manifest.csv")
-read_csv("vegeterian_friend/中文版.csv") -> vegeChinese
-read_csv("vegeterian_friend/日文版.csv") -> vegeJapanese
-read_csv("vegeterian_friend/韓文版.csv") -> vegeKorean
-read_csv("vegeterian_friend/英文版.csv") -> vegeEnglish
+read_csv("../vegeterian_friend/中文版.csv") -> vegeChinese
+read_csv("../vegeterian_friend/日文版.csv") -> vegeJapanese
+read_csv("../vegeterian_friend/韓文版.csv") -> vegeKorean
+read_csv("../vegeterian_friend/英文版.csv") -> vegeEnglish
 
 vegeChinese %>% select(座標位置)
 ```
@@ -129,4 +123,62 @@ vegeChinese %>%
 ```{r}
 save(vegeChinese,vegeEnglish,vegeJapanese,vegeKorean,VegeCoordinate,file = "restaurant.RData")
 ```
+
+---
+
+```{r}
+load("activity.RData")
+load("restaurant.RData")
+load("emergency.RData")
+load("restaurant2.RData")
+```
+
+
+```{r}
+
+vegeEnglish
+vegeEnglish %>% mutate(City = vegeEnglish$地址 %>% str_extract("[:alpha:]+(?=[:blank:](City))")) -> vegeEnglish
+
+vegeEnglish %>% select(City, everything()) -> vegeEnglish 
+vegeEnglish$City %>% str_c(" City") -> vegeEnglish$City
+
+vegeEnglish
+
+
+# vegeEnglish$地址 %>% str_view_all("[:alpha:]+(?=[:blank:](City))")
+
+vegeEnglish
+
+vegeEnglish %>% filter(City == "Taipei City")
+
+```
+
+```{r}
+MuslinRestTaiwan
+MuslinRestTaiwan %>% mutate_if(is.factor, as.character) -> MuslinRestTaiwan
+
+MuslinRestTaiwan
+
+MuslinRestTaiwan %>% mutate(City = MuslinRestTaiwan$地區 %>% str_extract("(?<=[\\u4e00-\\u9fa5][:blank:])([:alpha:]|[:blank:])+")) -> MuslinRestTaiwan
+
+MuslinRestTaiwan %>% select(City, everything()) -> MuslinRestTaiwan
+
+# str_view_all("(?<=[\\u4e00-\\u9fa5][:blank:])([:alpha:]|[:blank:])+")
+``` 
+
+
+```{r}
+MuslinRestTaiwan$City %>% str_extract("[:alpha:]+[:blank:][:alpha:]+") -> MuslinRestTaiwan$City
+
+MuslinRestTaiwan
+
+
+# MuslinRestTaiwan$英文地址 %>% str_view_all("[^([:punct:][:lower:])]")
+```
+
+
+```{r}
+save(MuslinRestTaiwan, file = "restaurant3.RData")
+```
+
 
