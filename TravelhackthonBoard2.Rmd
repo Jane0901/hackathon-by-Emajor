@@ -1,0 +1,140 @@
+---
+title: "TravelhackthonBoard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: column
+    vertical_layout: fill
+    theme: journal
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(RCurl)
+library(tidyverse)
+library(ggplot2) 
+library(bbplot)
+library(shinyjs)
+library(shinythemes)
+CountryAdmin
+librarylist
+activitylist
+neighborfinal
+vegeChinese
+vegeEnglish
+vegeJapanese
+vegeKorean
+VegeCoordinate
+```
+
+Sidebar {.sidebar}
+=====================================
+
+Please enter the country you belong and the city where you are now in order to enjoying the service.
+
+請輸入你所屬的國家以及目前所在的城市。
+
+
+```{r}
+sliderInput("priceInput", "Price", min = 0, max = 100,
+            value = c(25, 40), pre = "$")
+
+selectInput("countryInput", "Country",
+            choices = c("CANADA", "FRANCE", "ITALY"))
+
+radioButtons("typeInput", "Product type",
+        choices = c("BEER", "REFRESHMENT BEVERAGE", "SPIRITS", "WINE"),
+                        selected = "WINE")
+```
+
+
+Page 1
+=====================================  
+    
+Column {data-width=600}
+-----------------------------------------------------------------------
+
+### Chart1
+
+可以輸入文字，但是不能太多。
+
+```{r}
+
+renderPlot({
+
+bcldata %>%
+filter(CURRENT_DISPLAY_PRICE >= input$priceInput[1],
+       CURRENT_DISPLAY_PRICE <= input$priceInput[2],
+       PRODUCT_CLASS_NAME == input$typeInput,
+       PRODUCT_COUNTRY_ORIGIN_NAME == input$countryInput
+      ) -> bcldatafiltered
+
+ggplot(bcldatafiltered,
+  aes(PRODUCT_ALCOHOL_PERCENT)) +
+  geom_histogram() + 
+  bbc_style() + 
+  theme(axis.title = element_text(size = 14)) +
+  labs(x="alcohol percent", y = "count")
+        
+    })
+
+
+        
+        # h5(textInput("productpriceInput", "Productprice", 
+        #               placeholder = "enter the price condition"))
+        
+
+
+        #First Order, the product name
+        # h3("the product is the one which is the closest to your price condition"),
+```
+
+Page 2 {data-orientation=rows}
+=====================================
+
+Row{data-height=600}
+-----------------------------------------------------------------------
+
+
+### Chart2
+
+可以輸入文字，但是不能太多。
+
+```{r}
+
+# filtered <- reactive({
+#   if (is.null(input$priceInput)) {
+#     return(NULL) #To avoid showing error before the data is loaded.
+#   }    
+#         
+# bcldata %>%
+#   filter(CURRENT_DISPLAY_PRICE >= input$priceInput[1],
+#          CURRENT_DISPLAY_PRICE <= input$priceInput[2],
+#          PRODUCT_CLASS_NAME == input$typeInput,
+#          PRODUCT_COUNTRY_ORIGIN_NAME == input$countryInput
+#         )
+# })
+        
+
+      #renderPlot
+renderPlot({
+  
+  bcldata %>%
+  filter(CURRENT_DISPLAY_PRICE >= input$priceInput[1],
+         CURRENT_DISPLAY_PRICE <= input$priceInput[2],
+         PRODUCT_CLASS_NAME == input$typeInput,
+         PRODUCT_COUNTRY_ORIGIN_NAME == input$countryInput
+        ) -> bcldatafiltered
+  
+  ggplot(bcldatafiltered,
+    aes(PRODUCT_ALCOHOL_PERCENT)) +
+    geom_histogram() + 
+    bbc_style() + 
+    theme(axis.title = element_text(size = 14)) +
+    labs(x="alcohol percent", y = "count")
+          
+      })
+```
+
+
