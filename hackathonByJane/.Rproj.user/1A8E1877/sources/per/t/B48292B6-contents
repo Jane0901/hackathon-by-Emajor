@@ -1,0 +1,47 @@
+---
+title: "圖形模板"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggmap)
+library(shiny)
+library(XML)
+library(jsonlite)
+library(htrr)
+library(stringr)
+library(lubridate)
+library(mapproj)
+library(bbplot)
+library(showtext)
+font_add("QYuan","cwTeXQYuan-Medium.ttf")
+showtext_auto(enable=TRUE)
+theme_set(theme_classic())
+```
+
+# 長條圖
+
+## geom_bar
+
+```{r}
+
+```
+
+## geom_col
+
+```{r}
+
+```
+
+
+# 熱力圖
+
+```{r}
+資料集 %>% 
+  ggplot(aes(數值, 欄位)) +
+  geom_tile(aes(fill = 數值),colour = "white")+
+  scale_fill_gradient(low = "white",high = "steelblue")+ 
+  theme(axis.text.x = element_text(angle = 90,vjust=0.5, hjust=0.5)) 
+```
+

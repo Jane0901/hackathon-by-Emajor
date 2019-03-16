@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link href="lib/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
+<link href="lib/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.7/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.7/shim/respond.min.js"></script>
+<link href="lib/AdminLTE-2.0.6/AdminLTE.min.css" rel="stylesheet" />
+<link href="lib/AdminLTE-2.0.6/_all-skins.min.css" rel="stylesheet" />
+<script src="lib/AdminLTE-2.0.6/app.min.js"></script>
+<link href="lib/shinydashboard-0.7.1/shinydashboard.css" rel="stylesheet" />
+<script src="lib/shinydashboard-0.7.1/shinydashboard.min.js"></script>
+  <title>Simple tabs</title>
+</head>
+<body style="background-color:white;">
+<body class="skin-blue" style="min-height: 611px;">
+  <div class="wrapper">
+    <header class="main-header">
+      <span class="logo">Simple tabs</span>
+      <nav class="navbar navbar-static-top" role="navigation">
+        <span style="display:none;">
+          <i class="fa fa-bars"></i>
+        </span>
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav"></ul>
+        </div>
+      </nav>
+    </header>
+    <aside id="sidebarCollapsed" class="main-sidebar" data-collapsed="false">
+      <section id="sidebarItemExpanded" class="sidebar">
+        <ul class="sidebar-menu">
+          <li>
+            <a href="#shiny-tab-dashboard" data-toggle="tab" data-value="dashboard">
+              <i class="fa fa-dashboard"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#shiny-tab-widgets" data-toggle="tab" data-value="widgets">
+              <i class="fa fa-th"></i>
+              <span>Widgets</span>
+              <small class="badge pull-right bg-green">new</small>
+            </a>
+          </li>
+          <div id="sidebar" class="sidebarMenuSelectedTabItem" data-value="null"></div>
+        </ul>
+      </section>
+    </aside>
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane" id="shiny-tab-dashboard">
+            <h2>Dashboard tab content</h2>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="shiny-tab-widgets">
+            <h2>Widgets tab content</h2>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</body>
+</html>

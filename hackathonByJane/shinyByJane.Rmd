@@ -1,0 +1,89 @@
+---
+title: 'shiny'
+author: "陳宜榛"
+date: "2019/3/14"
+output: html_document
+runtime: shiny
+---
+```{r}
+library(shiny)
+library(shinydashboard)
+library(ggplot2)
+library(showtext)
+font_add("QYuan","cwTeXQYuan-Medium.ttf")
+showtext_auto(enable=TRUE)
+theme_set(theme_classic())
+```
+
+
+```{r}
+## ui.R ##
+sidebar <- dashboardSidebar(
+  sidebarMenu(id = "sidebar",
+    menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+    menuItem("Widgets", icon = icon("th"), tabName = "widgets",
+             badgeLabel = "new", badgeColor = "green")
+  )
+)
+
+body <- dashboardBody(
+  tabItems(
+    tabItem(tabName = "dashboard",
+      h2("Dashboard tab content")
+    ),
+
+    tabItem(tabName = "widgets",
+      h2("Widgets tab content")
+    )
+  )
+)
+
+# Put them together into a dashboardPage
+dashboardPage(
+  dashboardHeader(title = "Simple tabs"),
+  sidebar,
+  body
+)
+```
+
+
+```{r}
+ui <- dashboardPage(
+  dashboardHeader(title = "Dynamic sidebar"),
+  dashboardSidebar(
+    sidebarMenuOutput("menu")
+  ),
+  dashboardBody()
+)
+
+server <- function(input, output) {
+  output$menu <- renderMenu({
+    sidebarMenu(
+      menuItem("Menu item", icon = icon("calendar"))
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+```{r}
+ui <- dashboardPage(
+  dashboardHeader(title = "Dynamic sidebar"),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItemOutput("menuitem")
+    )
+  ),
+  dashboardBody()
+)
+
+server <- function(input, output) {
+  output$menuitem <- renderMenu({
+    menuItem("Menu item", icon = icon("calendar"))
+  })
+}
+
+shinyApp(ui, server)
+```
+

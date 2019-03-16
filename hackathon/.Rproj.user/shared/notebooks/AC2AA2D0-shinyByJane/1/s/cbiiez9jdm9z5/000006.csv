@@ -1,0 +1,7 @@
+"0","library(shiny)"
+"0","library(shinydashboard)"
+"0","library(ggplot2)"
+"0","library(showtext)"
+"0","font_add(""QYuan"",""cwTeXQYuan-Medium.ttf"")"
+"0","showtext_auto(enable=TRUE)"
+"0","theme_set(theme_classic())"
