@@ -15,8 +15,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Muslin
 
 ```{r}
-library(readr);library(jsonlite);library(xml2);library(xmltools);
+library(readr);library(jsonlite);library(xml2);
+# library(xmltools);
 library(stringr);library(dplyr);library(lubridate)
+
+# devtools::install_github('ultinomics/xmltools')
+# library(xmltools)
 ```
 
 ```{r}
@@ -67,6 +71,12 @@ MuslinRestbyKao %>%
   ) ->MuslinRestbyKao
 ```
 
+<<<<<<< HEAD
+#MuslinRestbyChina$地址 %>%
+#  str_remove("(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+") #->MuslinRestbyChina$地址
+
+MuslinRestbyChina
+=======
 ```{r}
 MuslinRestTaipei %>%
   mutate(
@@ -81,6 +91,7 @@ MuslinRestTaiwan %>%
     英文地址 = str_extract(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+"),
     地址 = str_remove(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
   ) -> MuslinRestTaiwan
+>>>>>>> 98cf3c889307886a5058c2ecd31c0b5023263392
 ```
 
 
@@ -94,6 +105,7 @@ read_csv("vegeterian_friend/英文版.csv") -> vegeEnglish
 
 vegeChinese %>% select(座標位置)
 ```
+
 ```{r}
 vegeChinese$座標位置 %>% 
   str_extract("(?<=(\\,))([:digit:]|\\.)+") %>% 
@@ -112,5 +124,9 @@ vegeChinese$緯度 %>%
 ```{r}
 vegeChinese %>%
   select(客戶名稱,緯度,經度) -> VegeCoordinate
+```
+
+```{r}
+save(vegeChinese,vegeEnglish,vegeJapanese,vegeKorean,VegeCoordinate,file = "restaurant.RData")
 ```
 

@@ -146,5 +146,7 @@ neighborugly %>% bind_cols(., neighborneat) -> neighborfinal
 activitylist
 librarylist
 neighborfinal
+
+save(activitylist,librarylist,neighborfinal,file = "activity.RData")
 ```
 

@@ -9,7 +9,7 @@ Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
 
 ```{r}
 library(readr)
-read.csv("/Users/elisa/Desktop/hackathon-by-Emajor/各國代表處 .csv")->sos_institution
+read.csv("/Users/chenpoming/Documents/GitHub/hackathon-by-Emajor/flexboard/CountryAdmin.csv")->sos_institution
 ```
 
 ```{r}
@@ -19,5 +19,7 @@ library(dplyr);library(stringr)
 ```{r}
 sos_institution %>%
   select(Country,Emergency.Contact) -> emergency_contact
+
+save(emergency_contact, file = "emergency.RData")
 ```
 
