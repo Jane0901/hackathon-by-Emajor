@@ -22,13 +22,15 @@ load("activity.RData")
 load("restaurant.RData")
 load("emergency.RData")
 
+#the emergency
+
 
 ui <- dashboardPage(
   dashboardHeader(disable = T),
   dashboardSidebar(disable = T),
   dashboardBody(
     # Boxes need to be put in a row (or column)
-    selectInput("CountryInput", "Country(國家)",
+    selectInput("CountryInput", "Country",
                 choices = c("China", 
                             "Japan", 
                             "Hong Kong",
@@ -38,7 +40,7 @@ ui <- dashboardPage(
                             "Singapore"),
                 selected = "Singapore"),
     fluidRow(
-      box(tableOutput("table1"))
+      box(tableOutput("table1"), status = "warning")
       
       # box(
       #   title = "Controls",
@@ -49,9 +51,6 @@ ui <- dashboardPage(
 
 
 server <- function(input, output) {
-  
-  
-  
   
   "中國(China)" -> "China"
   "日本(Japan)"  -> "Japan"
