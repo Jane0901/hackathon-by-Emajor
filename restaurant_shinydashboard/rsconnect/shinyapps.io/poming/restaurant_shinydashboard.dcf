@@ -5,9 +5,9 @@ account: poming
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 794343
-bundleId: 1944647
+bundleId: 1944664
 url: https://poming.shinyapps.io/restaurant_shinydashboard/
-when: 1552763690.16034
+when: 1552764783.95667
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: ggmap.Rmd

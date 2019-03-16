@@ -65,8 +65,10 @@ ui <- dashboardPage(
                 multiple = T),
     fluidRow(
       # box(plotOutput("plot1"), title = "location", status = "warning"),
-      box(tableOutput("tablevege"), title = "vegetarian", status = "warning"),
-      box(tableOutput("tableMuslin"), title = "Muslin", status = "warning")
+      box(tableOutput("tablevege"), title = "Vegetarian",
+          status = "warning", width = 6, collapsible = T),
+      box(tableOutput("tableMuslin"), title = "Muslin",
+          status = "warning", width = 6, collapsible = T)
       
     )
   )
@@ -89,7 +91,7 @@ server <- function(input, output) {
      #畫素食者
      # View(vegeEnglish)
      vegeEnglish %>% filter(City == input$CityInput) %>%
-                     select(客戶名稱1, 電話, 地址, 營業時間) -> filtered
+                     select(客戶名稱1, 電話, 地址,消費價格) -> filtered
      filtered
    })
    
