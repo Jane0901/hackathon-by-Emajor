@@ -63,16 +63,33 @@ ui <- dashboardPage(
                             "vegetarian"), 
                 selected = "vegetarian",
                 multiple = T),
-    fluidRow(
-      # box(plotOutput("plot1"), title = "location", status = "warning"),
-      box(tableOutput("tablevege"), title = "Vegetarian",
-          status = "warning", width = 6, collapsible = T),
-      box(tableOutput("tableMuslin"), title = "Muslin",
-          status = "warning", width = 6, collapsible = T)
+  tabsetPanel(type = "tabs",
+              
+              tabPanel("Food",
+                fluidRow(
+                # box(plotOutput("plot1"), title = "location", status = "warning"),
+                box(tableOutput("tablevege"), title = "Vegetarian",
+                    status = "warning", width = 6, collapsible = T),
+                box(tableOutput("tableMuslin"), title = "Muslin",
+                    status = "warning", width = 6, collapsible = T))),
+                
+              tabPanel("Photos", 
+                fluidRow()
+              ),
+              
+              tabPanel("Exhibitions", 
+                       fluidRow()
+              ),
+              
+              tabPanel("Natural", 
+                       fluidRow()
+              )
+              )
       
     )
-  )
-)
+   )
+  
+
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
