@@ -55,10 +55,10 @@ MuslinRestbyChina %>%
   select(地址)
 
 MuslinRestbyChina$地址 %>%
-  str_view_all("(?<=([:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
+  str_view_all("(?<=([:blank:]|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
 
 MuslinRestbyChina$地址 %>%
-  str_extract("(?<=([:blank:]|[:punct:]))([:alpha:]|[:digit:]|[:punct:]|[:space:])+") ->MuslinRestbyChina$英文地址
+  str_extract("(?<=([:blank:]|\\)|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+") ->MuslinRestbyChina$英文地址
 
 #MuslinRestbyChina$地址 %>%
 #  str_remove("(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+") #->MuslinRestbyChina$地址
