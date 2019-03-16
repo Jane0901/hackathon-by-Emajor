@@ -1,0 +1,38 @@
+---
+title: "Restaurant"
+author: "PoMingChen"
+date: "2019/3/16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Muslin
+
+```{r}
+read_csv("./Muslin_friend/china.csv") -> MuslinRestbyChina
+read_csv("./Muslin_friend/kao.csv") -> MuslinRestbyKao
+read.csv("./Muslin_friend/taipei.csv") -> MuslinRestTaipei
+read.csv("./Muslin_friend/taiwan.csv") -> MuslinRestTaiwan
+```
+
+```{r}
+MuslinRestbyChina$認證單位 #中國回教協會
+MuslinRestbyKao$認證單位 #財團法人中國回教協會高雄清真寺 
+MuslinRestTaipei$認證單位 #財團法人台北清真寺基金會
+MuslinRestTaiwan$認證單位 #台灣伊斯蘭協會
+```
+
+### Vegetarian
+```{r}
+# read_csv("vegeterian_friend/manifest.csv")
+read_csv("vegeterian_friend/中文版.csv") -> vegeChinese
+read_csv("vegeterian_friend/日文版.csv") -> vegeJapanese
+read_csv("vegeterian_friend/韓文版.csv") -> vegeKorean
+read_csv("vegeterian_friend/英文版.csv") -> vegeEnglish
+
+vegeChinese %>% select(座標位置)
+```
+

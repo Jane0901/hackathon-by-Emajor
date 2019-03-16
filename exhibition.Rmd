@@ -1,0 +1,42 @@
+---
+title: "exhibition"
+author: "PoMingChen"
+date: "2019/3/16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggmap)
+library(shiny)
+library(flexdashboard)
+library(shinythemes)
+library(XML)
+library(jsonlite)
+library(stringr)
+library(lubridate)
+library(mapproj)
+library(bbplot) #the BBC stlye Data-Viz, and maybe its useful =)
+# > [BBC stlye Data-Viz](https://bbc.github.io/rcookbook/)
+```
+
+### 活動
+```{r}
+activityurl <- "https://gis.taiwan.net.tw/XMLReleaseALL_public/activity_C_f.json"
+
+fromJSON(activityurl) -> activitylist
+
+activitylist
+
+as.data.frame(activitylist, stringsAsFactors = F) -> activitylist
+
+activitylist %>% select(-c(1:4)) -> activitylist
+
+activitylist
+```
+
