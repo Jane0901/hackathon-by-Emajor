@@ -21,6 +21,7 @@ library(jsonlite)
 library(stringr)
 library(lubridate)
 library(mapproj)
+library(nycflights13)
 library(bbplot) #the BBC stlye Data-Viz, and maybe its useful =)
 # > [BBC stlye Data-Viz](https://bbc.github.io/rcookbook/)
 ```
@@ -37,6 +38,113 @@ as.data.frame(activitylist, stringsAsFactors = F) -> activitylist
 
 activitylist %>% select(-c(1:4)) -> activitylist
 
+colnames(activitylist)
+
+activitylist %>% rename(
+ Info.Id = XML_Head.Infos.Info.Id,           
+ Info.Name = XML_Head.Infos.Info.Name,     
+ Info.Description = XML_Head.Infos.Info.Description,  
+ Info.Participation = XML_Head.Infos.Info.Participation,
+ Info.Location = XML_Head.Infos.Info.Location,     
+ Info.Add = XML_Head.Infos.Info.Add,       
+ Info.Tel = XML_Head.Infos.Info.Tel,        
+ Info.Org = XML_Head.Infos.Info.Org,         
+ Info.Start = XML_Head.Infos.Info.Start,         
+ Info.End = XML_Head.Infos.Info.End,        
+ Info.Cycle = XML_Head.Infos.Info.Cycle,       
+ Info.Noncycle = XML_Head.Infos.Info.Noncycle, 
+ Info.Website = XML_Head.Infos.Info.Website,
+ Info.Picture1 = XML_Head.Infos.Info.Picture1,   
+ Info.Picdescribe1 = XML_Head.Infos.Info.Picdescribe1,
+ Info.Picture2 = XML_Head.Infos.Info.Picture2,     
+ Info.Picdescribe2 = XML_Head.Infos.Info.Picdescribe2,  
+ Info.Picture3 = XML_Head.Infos.Info.Picture3,      
+ Info.Picdescribe3 = XML_Head.Infos.Info.Picdescribe3,  
+ Info.Px = XML_Head.Infos.Info.Px,
+ Info.Py = XML_Head.Infos.Info.Py,            
+ Info.Class1 = XML_Head.Infos.Info.Class1,        
+ Info.Class2 = XML_Head.Infos.Info.Class2,        
+ Info.Map = XML_Head.Infos.Info.Map,     
+ Info.Travellinginfo = XML_Head.Infos.Info.Travellinginfo,
+ Info.Parkinginfo = XML_Head.Infos.Info.Parkinginfo,
+ Info.Charge = XML_Head.Infos.Info.Charge,       
+ Info.Remarks = XML_Head.Infos.Info.Remarks       
+  
+) -> activitylist
+
+activitylist %>% colnames()
 activitylist
+
+activitylist %>% select(-c(1,3,12,13)) %>% mutate(Info.Start = str_sub(Info.Start, 1,10), Info.End = str_sub(Info.End, 1, 10)) -> activitylist
+```
+
+### 博物館
+
+```{r}
+libraryurl <- "https://cloud.culture.tw/frontsite/trans/emapOpenDataAction.do?method=exportEmapJson&typeId=H"
+
+fromJSON(libraryurl) -> librarylist
+
+librarylist %>% colnames()
+librarylist
+librarylist %>% select(-c(contact, fax, email, srcWebsite, mainTypePk, version, headCityName, hitRate, mainTypeName, groupTypeName)) -> librarylist
+```
+
+### 經緯度查詢附近未過期活動
+
+```{r}
+neighborurl <- "https://cloud.culture.tw/frontsite/opendata/activityOpenDataJsonAction.do?method=doFindActivitiesNearBy&lat=25.051345&lon=121.549569&range=2"
+
+fromJSON(neighborurl) -> neighborugly
+neighborugly
+
+neighborugly$showInfo %>% unlist %>% enframe() -> neighborraw
+neighborraw
+
+neighborraw %>% rename(Info = name, content = value) -> neighborraw
+
+neighborraw
+
+neighborraw %>% group_by(Info) %>% mutate(group_id = row_number()) %>% select(group_id, everything()) -> neighborraw
+
+
+
+neighborraw[c(1:960),] -> neighborraw
+
+neighborraw[c(1:744), ] -> neighborraw2
+neighborraw2
+neighborraw2 %>% spread(key = "Info", value = "content") %>% select(-group_id) -> neighborraw2
+
+neighborraw2 %>% colnames()
+
+neighborraw2 %>% select(locationName, location, time, endTime, onSales, everything()) -> neighborneat
+```
+
+```{r}
+neighborugly[c(1:93),] -> neighborugly
+neighborugly %>% select(-c(10:13)) -> neighborugly
+neighborugly %>% colnames()
+
+neighborneat %>% rename(startDate = time, endDate = endTime) -> neighborneat
+
+neighborneat %>% mutate(startDate = startDate %>% str_sub(1,10), endDate = endDate %>% str_sub(1,10)) -> neighborneat
+
+neighborugly %>% colnames()
+
+neighborugly %>% select(-c(4,5,6,11,16)) -> neighborugly
+neighborugly %>% select(title, category, startDate, endDate, everything()) -> neighborugly
+neighborneat
+neighborugly
+
+neighborneat %>% colnames()
+neighborugly %>% colnames()
+
+neighborugly %>% bind_cols(., neighborneat) -> neighborfinal
+```
+
+```{r}
+activitylist
+librarylist
+neighborfinal
 ```
 
