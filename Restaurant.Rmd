@@ -15,8 +15,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Muslin
 
 ```{r}
-library(readr);library(jsonlite);library(xml2);library(xmltools);
+library(readr);library(jsonlite);library(xml2);
+# library(xmltools);
 library(stringr);library(dplyr);library(lubridate)
+
+# devtools::install_github('ultinomics/xmltools')
+# library(xmltools)
 ```
 
 ```{r}
@@ -62,6 +66,8 @@ MuslinRestbyChina$地址 %>%
 
 #MuslinRestbyChina$地址 %>%
 #  str_remove("(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+") #->MuslinRestbyChina$地址
+
+MuslinRestbyChina
 ```
 
 
@@ -75,6 +81,7 @@ read_csv("vegeterian_friend/英文版.csv") -> vegeEnglish
 
 vegeChinese %>% select(座標位置)
 ```
+
 ```{r}
 vegeChinese$座標位置 %>% 
   str_extract("(?<=(\\,))([:digit:]|\\.)+") %>% 
@@ -93,5 +100,9 @@ vegeChinese$緯度 %>%
 ```{r}
 vegeChinese %>%
   select(客戶名稱,緯度,經度) -> VegeCoordinate
+```
+
+```{r}
+save(vegeChinese,vegeEnglish, vegeJapanese, vegeKorean, Vege,file = "名稱.RData")
 ```
 
