@@ -52,16 +52,35 @@ MuslinRestTaiwan$備註<-NULL
 
 ```{r}
 MuslinRestbyChina %>%
-  select(地址)
+  mutate(
+    英文地址 = str_extract(地址,"(?<=([:blank:]|\\)|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+"),
+    地址 = str_remove(地址,"(?<=([:blank:]|\\)|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
+  ) -> MuslinRestbyChina
 
-MuslinRestbyChina$地址 %>%
-  str_view_all("(?<=([:blank:]|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
+```
 
-MuslinRestbyChina$地址 %>%
-  str_extract("(?<=([:blank:]|\\)|\\,))([:alpha:]|[:digit:]|[:punct:]|[:space:])+") ->MuslinRestbyChina$英文地址
+```{r}
+MuslinRestbyKao %>%
+  mutate(
+    英文地址 = str_extract(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+"),
+    地址 = str_remove(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
+  ) ->MuslinRestbyKao
+```
 
-#MuslinRestbyChina$地址 %>%
-#  str_remove("(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+") #->MuslinRestbyChina$地址
+```{r}
+MuslinRestTaipei %>%
+  mutate(
+    英文地址 = str_extract(地址,"(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+"),
+    地址 = str_remove(地址,"(?<=[:blank:])([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
+  ) -> MuslinRestTaipei
+```
+
+```{r}
+MuslinRestTaiwan %>%
+  mutate(
+    英文地址 = str_extract(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+"),
+    地址 = str_remove(地址,"(?<=(號))([:alpha:]|[:digit:]|[:punct:]|[:space:])+")
+  ) -> MuslinRestTaiwan
 ```
 
 
