@@ -108,13 +108,23 @@ server <- function(input, output) {
      #畫素食者
      # View(vegeEnglish)
      vegeEnglish %>% filter(City == input$CityInput) %>%
-                     select(客戶名稱1, 電話, 地址,消費價格) -> filtered
+                     rename(
+                       Store = 客戶名稱1,
+                       Phone = 電話,
+                       Adres = 地址,
+                       Price = 消費價格
+                     ) %>%
+                     select(Store, Phone, Adres,Price)  -> filtered
      filtered
    })
    
    output$tableMuslin <-  renderTable({
      MuslinRestTaiwan %>% filter(City == input$CityInput) %>%
-       select(餐廳名稱,英文地址) -> filtered
+                          rename(
+                            Store = 餐廳名稱,
+                            Adres = 英文地址
+                          ) %>% 
+                          select(Store,Adres) -> filtered
      filtered
    })
    
