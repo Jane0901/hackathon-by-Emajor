@@ -127,6 +127,6 @@ vegeChinese %>%
 ```
 
 ```{r}
-save(vegeChinese,vegeEnglish, vegeJapanese, vegeKorean, Vege,file = "名稱.RData")
+save(vegeChinese,vegeEnglish,vegeJapanese,vegeKorean,VegeCoordinate,file = "restaurant.RData")
 ```
 
