@@ -1,0 +1,12 @@
+name: TravelhackthonBoard2
+title: TravelhackthonBoard2
+username:
+account: poming
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 794105
+bundleId: 1944233
+url: https://poming.shinyapps.io/TravelhackthonBoard2/
+when: 1552738694.2486
+asMultiple: FALSE
+asStatic: FALSE

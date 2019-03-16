@@ -1,0 +1,183 @@
+---
+title: "TravelhackthonBoard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: column
+    vertical_layout: fill
+    theme: journal
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(RCurl)
+library(tidyverse)
+library(ggplot2) 
+library(bbplot)
+library(shinyjs)
+library(shinythemes)
+library(DT)
+load("activity.RData")
+load("restaurant.RData")
+load("emergency.RData")
+
+bclurl <- "https://pub.data.gov.bc.ca/datasets/176284/BC_Liquor_Store_Product_Price_List.csv"
+x <- getURL(bclurl)
+bcldata <- read.csv(textConnection(x), stringsAsFactors = F)
+```
+
+Sidebar {.sidebar}
+=====================================
+
+請輸入你所屬的國家以及目前所在的城市。
+
+Please enter the country you belong and the city where you are now in order to enjoying the service.
+
+```{r}
+# sliderInput("priceInput", "Price", min = 0, max = 100,
+#             value = c(25, 40), pre = "$")
+
+selectInput("CountryInput", "Country(國家)",
+            choices = c("中國(China)", 
+                        "日本(Japan)", 
+                        "香港(Hong Kong)",
+                        "澳門(Macao)",
+                        "韓國(Korea)",
+                        "美國(America)",
+                        "新加坡(Singapore)"),
+            selected = "新加坡(Singapore)")
+
+selectInput("CityInput", "目前所在的城市(City)",
+            choices = c("臺北市(Taipei City)", #可能有些資料是寫“台”北市
+                        "新北市(New Taipei City)", 
+                        "桃園市(Taoyuan City)",
+                        "臺中市(Taichung City)",
+                        "臺南市(Tainan City)",
+                        "高雄市(Kaohsiung City)",
+                        "基隆市(Keelung City)",
+                        "新竹市(Hsinchu County)",
+                        "嘉義市(Chiayi City)",
+                        "新竹縣(Keelung City)",
+                        "苗栗縣(Miaoli County)",
+                        "彰化縣(Changhua County)",
+                        "南投縣(Nantou County)",
+                        "雲林縣(Yunlin County)",
+                        "嘉義縣(Chiayi County)",
+                        "屏東縣(Pingtung County)",
+                        "宜蘭縣(Yilan County)",
+                        "花蓮縣(Hualien County)",
+                        "臺東縣(Taitung County)",
+                        "澎湖縣(Penghu County)",
+                        "連江縣(Lienchiang County)",
+                        "金門縣(Kinmen County)"),
+            selected = "高雄市(Kaohsiung City)")
+
+# radioButtons("typeInput", "Product type",
+#         choices = c("BEER", "REFRESHMENT BEVERAGE", "SPIRITS", "WINE"),
+#                         selected = "WINE")
+```
+
+
+Page 1
+=====================================  
+    
+Column {.tabset data-width=600} 
+-----------------------------------------------------------------------
+
+### Chart1
+
+可以輸入文字，但是不能太多。
+
+```{r}
+
+# renderPlot({
+# 
+# bcldata %>%
+# filter(CURRENT_DISPLAY_PRICE >= input$priceInput[1],
+#        CURRENT_DISPLAY_PRICE <= input$priceInput[2],
+#        PRODUCT_CLASS_NAME == input$typeInput,
+#        PRODUCT_COUNTRY_ORIGIN_NAME == input$countryInput
+#       ) -> bcldatafiltered
+#
+# ggplot(bcldatafiltered,
+#   aes(PRODUCT_ALCOHOL_PERCENT)) +
+#   geom_histogram() +
+#   bbc_style() +
+#   theme(axis.title = element_text(size = 14)) +
+#   labs(x="alcohol percent", y = "count")
+#         
+#     })
+
+
+        
+        # h5(textInput("productpriceInput", "Productprice", 
+        #               placeholder = "enter the price condition"))
+        
+
+
+        #First Order, the product name
+        # h3("the product is the one which is the closest to your price condition"),
+```
+
+### 緊急聯絡(Emergency contact)
+```{r}
+DT::renderTable(
+  emergency_contact
+  
+  emergency_contact %>% 
+    input
+)
+emergency_contact
+```
+
+
+
+Page 2 {data-orientation=rows}
+=====================================
+
+Row{data-height=600}
+-----------------------------------------------------------------------
+
+
+### Chart2
+
+可以輸入文字，但是不能太多。
+
+```{r}
+
+# filtered <- reactive({
+#   if (is.null(input$priceInput)) {
+#     return(NULL) #To avoid showing error before the data is loaded.
+#   }    
+#         
+# bcldata %>%
+#   filter(CURRENT_DISPLAY_PRICE >= input$priceInput[1],
+#          CURRENT_DISPLAY_PRICE <= input$priceInput[2],
+#          PRODUCT_CLASS_NAME == input$typeInput,
+#          PRODUCT_COUNTRY_ORIGIN_NAME == input$countryInput
+#         )
+# })
+        
+
+      #renderPlot
+renderPlot({
+  
+  bcldata %>%
+  filter(CURRENT_DISPLAY_PRICE >= input$priceInput[1],
+         CURRENT_DISPLAY_PRICE <= input$priceInput[2],
+         PRODUCT_CLASS_NAME == input$typeInput,
+         PRODUCT_COUNTRY_ORIGIN_NAME == input$countryInput
+        ) -> bcldatafiltered
+  
+  ggplot(bcldatafiltered,
+    aes(PRODUCT_ALCOHOL_PERCENT)) +
+    geom_histogram() + 
+    bbc_style() + 
+    theme(axis.title = element_text(size = 14)) +
+    labs(x="alcohol percent", y = "count")
+          
+      })
+```
+
+
