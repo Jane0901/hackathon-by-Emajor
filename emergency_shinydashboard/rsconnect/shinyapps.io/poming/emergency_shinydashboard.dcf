@@ -5,8 +5,8 @@ account: poming
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 794175
-bundleId: 1944368
+bundleId: 1944421
 url: https://poming.shinyapps.io/emergency_shinydashboard/
-when: 1552746186.61329
+when: 1552749943.87178
 asMultiple: FALSE
 asStatic: FALSE
