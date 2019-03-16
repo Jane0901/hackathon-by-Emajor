@@ -24,8 +24,10 @@ load("emergency.RData")
 
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Basic dashboard"),
-  dashboardSidebar(
+  dashboardHeader(disable = T),
+  dashboardSidebar(disable = T),
+  dashboardBody(
+    # Boxes need to be put in a row (or column)
     selectInput("CountryInput", "Country(國家)",
                 choices = c("China", 
                             "Japan", 
@@ -34,10 +36,7 @@ ui <- dashboardPage(
                             "Korea",
                             "America",
                             "Singapore"),
-                selected = "Singapore")
-  ),
-  dashboardBody(
-    # Boxes need to be put in a row (or column)
+                selected = "Singapore"),
     fluidRow(
       box(tableOutput("table1"))
       
@@ -50,6 +49,8 @@ ui <- dashboardPage(
 
 
 server <- function(input, output) {
+  
+  
   
   
   "中國(China)" -> "China"
