@@ -1,0 +1,248 @@
+/* ! CSS Used from: https://www.cwb.gov.tw/V8/assets/plugins/bootstrap/css/bootstrap.min.css  */
+
+a {
+  background-color: transparent;
+}
+
+a:active, a:hover {
+  outline: 0;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #23527c;
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* ! CSS Used from: https://www.cwb.gov.tw/V8/assets/plugins/cwb-fonticon/style.css  */
+
+[class^="icon-"] {
+  font-family: 'icomoon'!important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ! CSS Used from: https://www.cwb.gov.tw/V8/assets/css/main.css  */
+
+*, :active, :focus, :hover, :link, :visited {
+  -o-transition: background-color .2s linear,border-color .1s linear;
+  -webkit-transition: background-color .2s linear,border-color .1s linear;
+  -moz-transition: background-color .2s linear,border-color .1s linear;
+  transition: background-color .2s linear,border-color .1s linear;
+}
+
+a {
+  position: relative;
+  word-break: break-all;
+}
+
+a:hover {
+  z-index: 9;
+}
+
+a:focus {
+  -webkit-box-shadow: 3px 3px 20px 0 rgba(100,100,100,.6);
+  -ms-box-shadow: 3px 3px 20px 0 rgba(100,100,100,.6);
+  box-shadow: 3px 3px 20px 0 rgba(100,100,100,.6);
+}
+
+* {
+  border-radius: 0;
+}
+
+a, a:active, a:focus, a:hover {
+  outline: 0!important;
+}
+
+a:focus {
+  text-decoration: none;
+}
+
+a {
+  color: #5ebdca;
+  text-decoration: none;
+}
+
+a, a:active, a:focus, a:hover {
+  outline: 0!important;
+}
+
+a:focus {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #116dbf;
+  text-decoration: underline;
+}
+
+a {
+  color: #0f838c;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #0f838c;
+}
+
+body:not(.show-focus-outlines) a:focus {
+  outline: 0;
+}
+
+@media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+  .map_theme svg {
+    height: 610px;
+  }
+}
+
+/* ! CSS Used from: https://www.cwb.gov.tw/V8/assets/css/main-map.css  */
+
+*, :active, :focus, :hover, :link, :visited {
+  -o-transition: background-color .2s linear,border-color .1s linear;
+  -webkit-transition: background-color .2s linear,border-color .1s linear;
+  -moz-transition: background-color .2s linear,border-color .1s linear;
+  transition: background-color .2s linear,border-color .1s linear;
+}
+
+a {
+  position: relative;
+  word-break: break-all;
+}
+
+a:hover {
+  z-index: 9;
+}
+
+a:focus {
+  -webkit-box-shadow: 3px 3px 20px 0 rgba(100,100,100,.6);
+  -ms-box-shadow: 3px 3px 20px 0 rgba(100,100,100,.6);
+  box-shadow: 3px 3px 20px 0 rgba(100,100,100,.6);
+}
+
+.map_theme g, .map_theme path {
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transform: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#default_map svg {
+  max-width: 100%;
+  width: 448.59px;
+  height: 600px;
+}
+
+#default_map svg a {
+  cursor: pointer;
+}
+
+#default_map svg a.is-active path {
+  fill: rgba(255,255,255,.4);
+}
+
+#default_map svg path {
+  fill: transparent;
+  stroke: #FFF;
+  stroke-width: 1px;
+  stroke-miterlimit: 10;
+}
+
+#default_map svg path:hover {
+  fill: rgba(255,255,255,.4);
+}
+
+#default_map #position {
+  fill: #0959a8!important;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transform: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+#default_map #position .icon-in {
+  animation-name: bounce;
+  transform-origin: center bottom;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+
+#default_map #position .icon-in path {
+  fill: #010840!important;
+  stroke: none!important;
+}
+
+/* ! CSS Used keyframes  */
+
+@keyframes bounce {
+  0%, 100%, 20%, 50%, 80% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -webkit-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes bounce {
+  20%, 53%, 80%, from, to {
+    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+    transform: translate3d(0,0,0);
+  }
+  40%, 43% {
+    animation-timing-function: cubic-bezier(.755,.05,.855,.06);
+    transform: translate3d(0,-30px,0);
+  }
+  70% {
+    animation-timing-function: cubic-bezier(.755,.05,.855,.06);
+    transform: translate3d(0,-15px,0);
+  }
+  90% {
+    transform: translate3d(0,-4px,0);
+  }
+}
+
+/* ! CSS Used fontfaces  */
+

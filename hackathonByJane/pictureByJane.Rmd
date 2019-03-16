@@ -1,0 +1,68 @@
+---
+title: "圖形模板"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggmap)
+library(shiny)
+library(XML)
+library(jsonlite)
+library(htrr)
+library(stringr)
+library(lubridate)
+library(mapproj)
+library(bbplot)
+library(showtext)
+font_add("QYuan","cwTeXQYuan-Medium.ttf")
+showtext_auto(enable=TRUE)
+theme_set(theme_classic())
+```
+
+# 長條圖
+
+## geom_bar
+
+```{r}
+資料集%>%
+  ggplot(aes(x=變數x)) +
+  geom_col(aes(y=變數y),fill="#9999CC")+
+  scale_x_discrete(
+    limits = c(),
+    labels = c())+
+  labs(title="標題")+
+  scale_y_continuous(
+    expand=expand_scale(mult=c(0,0.1))
+  )
+```
+
+## geom_col
+
+```{r}
+資料集%>%
+  ggplot(aes(x=變數x)) +
+  geom_col(aes(y=變數y,fill=變數z),alpha=0.5) + #透明度
+  scale_x_discrete(limits=設定好的)+
+  labs(title="標題")+
+  coord_flip()+ #翻轉軸
+  scale_y_continuous(
+    expand=expand_scale(mult=c(0,0.1))
+  )+
+  scale_fill_discrete(
+    name="科系所屬學院",
+    breaks=c("人文學院","社會科學院","法律學院","商學院","公共事務學院","電機資訊學院")
+  )
+```
+
+
+# 熱力圖
+
+```{r}
+資料集 %>% 
+  ggplot(aes(數值, 欄位)) +
+  geom_tile(aes(fill = 數值),colour = "white")+
+  scale_fill_gradient(low = "white",high = "steelblue")+ 
+  theme(axis.text.x = element_text(angle = 90,vjust=0.5, hjust=0.5)) 
+```
+
